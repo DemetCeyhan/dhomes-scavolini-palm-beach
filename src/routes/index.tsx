@@ -65,7 +65,7 @@ function HomePage() {
 
     <section className="bg-foreground px-5 py-24 text-background sm:px-8 lg:px-12 lg:py-32">
       <div className="mx-auto max-w-[1344px]"><div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr]"><Eyebrow light>{t.valuesLabel}</Eyebrow><div><h2 className="max-w-4xl text-4xl font-medium leading-tight sm:text-6xl">{t.valuesTitle}</h2><p className="mt-7 max-w-2xl text-lg leading-8 text-background/65">{t.valuesIntro}</p></div></div>
-        <div className="mt-16 grid border-t border-background/20 sm:grid-cols-2 lg:grid-cols-4">{t.values.map(([title, body], index) => { const icons = [ShieldCheck, Leaf, HeartHandshake, RefreshCw]; const Icon = icons[index]; return <article key={title} className="border-b border-background/20 py-8 sm:px-7 sm:odd:border-r lg:border-r lg:last:border-r-0"><Icon className="size-6 text-primary" aria-hidden="true" /><h3 className="mt-14 text-2xl font-medium">{title}</h3><p className="mt-4 leading-7 text-background/60">{body}</p></article>; })}</div>
+        <div className="mt-16 grid border-t border-background/20 sm:grid-cols-2 lg:grid-cols-4">{t.values.map(([title, body], index) => { const icons = [ShieldCheck, Leaf, HeartHandshake, RefreshCw]; const Icon = icons[index] ?? ShieldCheck; return <article key={title} className="border-b border-background/20 py-8 sm:px-7 sm:odd:border-r lg:border-r lg:last:border-r-0"><Icon className="size-6 text-primary" aria-hidden="true" /><h3 className="mt-14 text-2xl font-medium">{title}</h3><p className="mt-4 leading-7 text-background/60">{body}</p></article>; })}</div>
       </div>
     </section>
 
