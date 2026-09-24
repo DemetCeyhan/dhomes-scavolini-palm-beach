@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowUpRight, Check, ChevronDown, Menu, X } from "lucide-react";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { ES, IT, US } from "country-flag-icons/react/3x2";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -85,12 +86,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
 }
 
 function LanguagePicker({ language, setLanguage }: { language: Language; setLanguage: (language: Language) => void }) {
-  const languages: Record<Language, { flag: string; label: string }> = {
-    en: { flag: "🇺🇸", label: "English" },
-    es: { flag: "🇪🇸", label: "Español" },
-    it: { flag: "🇮🇹", label: "Italiano" },
+  const languages: Record<Language, { Flag: typeof US; label: string }> = {
+    en: { Flag: US, label: "English" },
+    es: { Flag: ES, label: "Español" },
+    it: { Flag: IT, label: "Italiano" },
   };
   const selected = languages[language];
+  const SelectedFlag = selected.Flag;
 
   return (
     <DropdownMenu>
@@ -100,7 +102,7 @@ function LanguagePicker({ language, setLanguage }: { language: Language; setLang
           className="h-10 min-w-[86px] justify-between gap-2 rounded-none border border-background/35 px-3 text-xs text-primary-foreground hover:bg-background/15 hover:text-primary-foreground"
           aria-label={`Language: ${selected.label}`}
         >
-          <span className="flex items-center gap-2"><span className="text-base leading-none" aria-hidden="true">{selected.flag}</span>{languageNames[language]}</span>
+          <span className="flex items-center gap-2"><SelectedFlag className="h-3.5 w-5" aria-hidden="true" />{languageNames[language]}</span>
           <ChevronDown className="size-3.5 opacity-70" />
         </Button>
       </DropdownMenuTrigger>
@@ -111,7 +113,10 @@ function LanguagePicker({ language, setLanguage }: { language: Language; setLang
             onSelect={() => setLanguage(item)}
             className="h-11 cursor-pointer rounded-none px-3 text-sm focus:bg-secondary"
           >
-            <span className="text-lg leading-none" aria-hidden="true">{languages[item].flag}</span>
+            {(() => {
+              const Flag = languages[item].Flag;
+              return <Flag className="h-4 w-6" aria-hidden="true" />;
+            })()}
             <span>{languages[item].label}</span>
             {language === item && <Check className="ml-auto size-4 text-primary" />}
           </DropdownMenuItem>
