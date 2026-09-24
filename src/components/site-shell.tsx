@@ -39,9 +39,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <SiteContext.Provider value={{ language, setLanguage }}>
       <a href="#main-content" className="skip-link">Skip to content</a>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-background/20 bg-primary text-primary-foreground">
-        <div className="mx-auto grid h-20 max-w-[1440px] grid-cols-[minmax(0,1fr)_auto] items-center px-5 sm:h-24 sm:px-8 lg:grid-cols-[auto_1fr_auto] lg:px-12">
+        <div className="mx-auto grid h-16 max-w-[1440px] grid-cols-[minmax(0,1fr)_auto] items-center px-5 sm:h-20 sm:px-8 lg:grid-cols-[auto_1fr_auto] lg:px-12">
           <Link to="/" aria-label="D'HOMES home" className="min-w-0">
-            <img src={logo} alt="D'HOMES — Kitchens, Interiors, Lifestyle" className="h-11 w-auto max-w-[220px] object-contain object-left sm:h-14 sm:max-w-[270px]" />
+            <img src={logo} alt="D'HOMES — Kitchens, Interiors, Lifestyle" className="h-9 w-auto max-w-[200px] object-contain object-left sm:h-11 sm:max-w-[240px]" />
           </Link>
           <nav className="hidden justify-center gap-8 lg:flex" aria-label="Main navigation">
             {links.map(([to, label]) => (
@@ -68,7 +68,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
         )}
       </header>
-      <main id="main-content" className="pt-20 sm:pt-24">{children}</main>
+      <main id="main-content" className="pt-16 sm:pt-20">{children}</main>
       <footer className="bg-foreground px-5 py-14 text-background sm:px-8 lg:px-12 lg:py-20">
         <div className="mx-auto max-w-[1344px]">
           <div className="grid gap-12 border-b border-background/20 pb-14 md:grid-cols-[1.3fr_.7fr]">
