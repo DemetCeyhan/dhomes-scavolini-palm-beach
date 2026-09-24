@@ -29,12 +29,14 @@ function HomePage() {
   return <>
     <section className="relative min-h-[calc(100svh-5rem)] overflow-hidden bg-foreground sm:min-h-[calc(100svh-6rem)]">
       <img src={heroImage} alt="Contemporary Italian kitchen overlooking Palm Beach waterways" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover animate-[heroZoom_16s_ease-out_both]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/15 to-foreground/20" />
+      <div className="absolute inset-0 bg-foreground/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-foreground/15" />
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/40 via-foreground/10 to-transparent" />
       <div className="relative mx-auto flex min-h-[calc(100svh-5rem)] max-w-[1440px] flex-col justify-end px-5 pb-9 sm:min-h-[calc(100svh-6rem)] sm:px-8 sm:pb-14 lg:px-12">
         <Eyebrow light>{t.eyebrow}</Eyebrow>
         <div className="mt-5 grid items-end gap-8 lg:grid-cols-[1fr_25rem]">
-          <h1 className="max-w-5xl text-[clamp(3rem,7.5vw,7.5rem)] font-medium leading-[.95] text-background">{t.title}</h1>
-          <div className="pb-2"><p className="max-w-sm text-base leading-7 text-background/85">{t.intro}</p><Button asChild variant="outline" className="mt-6 h-12 rounded-none border-background/50 bg-transparent px-5 text-background hover:bg-background hover:text-foreground"><Link to="/products">{t.cta}<ArrowRight /></Link></Button></div>
+          <h1 className="max-w-5xl text-[clamp(3rem,7.5vw,7.5rem)] font-medium leading-[.95] text-background drop-shadow-[0_3px_12px_oklch(0.16_0_0/0.28)]">{t.title}</h1>
+          <div className="pb-2"><p className="max-w-sm text-base leading-7 text-background/90 drop-shadow-[0_2px_6px_oklch(0.16_0_0/0.35)]">{t.intro}</p><Button asChild variant="outline" className="mt-6 h-12 rounded-none border-background/60 bg-foreground/10 px-5 text-background shadow-md backdrop-blur-sm hover:bg-background hover:text-foreground"><Link to="/products">{t.cta}<ArrowRight /></Link></Button></div>
         </div>
         <ArrowDown className="mt-9 size-5 text-background/60 animate-bounce" aria-hidden="true" />
       </div>
