@@ -1,7 +1,14 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Check, ChevronDown, Menu, X } from "lucide-react";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { ES, IT, US } from "country-flag-icons/react/3x2";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import logo from "@/assets/dhomes-logo-white.png";
 import { copy, languageNames, type Language } from "@/lib/site-copy";
 
@@ -79,7 +86,44 @@ export function SiteShell({ children }: { children: ReactNode }) {
 }
 
 function LanguagePicker({ language, setLanguage }: { language: Language; setLanguage: (language: Language) => void }) {
-  return <div className="flex items-center gap-1" aria-label="Language selector">{(Object.keys(languageNames) as Language[]).map((item) => <Button key={item} variant="ghost" size="sm" aria-pressed={language === item} className={`h-8 min-w-9 rounded-none px-2 text-[11px] ${language === item ? "bg-background text-primary hover:bg-background/90 hover:text-primary" : "text-primary-foreground/70 hover:bg-background/15 hover:text-primary-foreground"}`} onClick={() => setLanguage(item)}>{languageNames[item]}</Button>)}</div>;
+  const languages: Record<Language, { Flag: typeof US; label: string }> = {
+    en: { Flag: US, label: "English" },
+    es: { Flag: ES, label: "Español" },
+    it: { Flag: IT, label: "Italiano" },
+  };
+  const selected = languages[language];
+  const SelectedFlag = selected.Flag;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          className="h-10 min-w-[86px] justify-between gap-2 rounded-none border border-background/35 px-3 text-xs text-primary-foreground hover:bg-background/15 hover:text-primary-foreground"
+          aria-label={`Language: ${selected.label}`}
+        >
+          <span className="flex items-center gap-2"><SelectedFlag className="h-3.5 w-5" aria-hidden="true" />{languageNames[language]}</span>
+          <ChevronDown className="size-3.5 opacity-70" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" sideOffset={8} className="min-w-44 rounded-none border-border bg-background p-1.5 shadow-lg">
+        {(Object.keys(languages) as Language[]).map((item) => (
+          <DropdownMenuItem
+            key={item}
+            onSelect={() => setLanguage(item)}
+            className="h-11 cursor-pointer rounded-none px-3 text-sm focus:bg-secondary"
+          >
+            {(() => {
+              const Flag = languages[item].Flag;
+              return <Flag className="h-4 w-6" aria-hidden="true" />;
+            })()}
+            <span>{languages[item].label}</span>
+            {language === item && <Check className="ml-auto size-4 text-primary" />}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }
 
 export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
