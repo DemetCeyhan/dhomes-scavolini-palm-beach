@@ -6,3 +6,6 @@
 - [x] Verify desktop and mobile layouts
 - [x] Expand the About page with heritage, process, values, and Palm Beach content
 - [x] Verify the expanded About page in all languages and screen sizes
+- [ ] Separate Home and About into distinct pages
+- [ ] Add a verified, year-based Scavolini history to About
+- [ ] Verify Home and About navigation in all languages and screen sizes

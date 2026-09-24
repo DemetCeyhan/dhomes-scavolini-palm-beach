@@ -31,6 +31,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   const links = [
     ["/", text.nav.home],
+    ["/about", text.nav.about],
     ["/products", text.nav.products],
     ["/projects", text.nav.projects],
   ] as const;
