@@ -87,7 +87,7 @@ function TimelineSection({ t }: TimelineProps) {
                 key={year}
                 onMouseEnter={() => setActive(index)}
                 style={{ flex: `${isActive ? 4.5 : 1} 1 0%` }}
-                className={`relative overflow-hidden border bg-card transition-all duration-500 ease-out lg:min-w-[88px] ${isActive ? "border-primary/30" : "border-border"}`}
+                className={`relative flex flex-col overflow-hidden border bg-card transition-all duration-500 ease-out lg:min-h-0 lg:min-w-[88px] lg:flex-row ${isActive ? "border-primary/30" : "border-border"}`}
               >
                 <button
                   type="button"
