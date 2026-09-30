@@ -112,7 +112,7 @@ function LanguagePicker({ language, setLanguage }: { language: Language; setLang
           <DropdownMenuItem
             key={item}
             onSelect={() => setLanguage(item)}
-            className="h-11 cursor-pointer rounded-none px-3 text-sm focus:bg-secondary"
+            className="h-11 cursor-pointer rounded-md px-3 text-sm focus:bg-secondary"
           >
             {(() => {
               const Flag = languages[item].Flag;
