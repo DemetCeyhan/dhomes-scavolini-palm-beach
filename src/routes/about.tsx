@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, HeartHandshake, Leaf, RefreshCw, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,11 +45,7 @@ function AboutPage() {
       <div className="flex flex-col justify-between px-5 py-16 sm:px-10 lg:px-16 lg:py-20"><Eyebrow>{t.heritageLabel}</Eyebrow><div className="mt-20"><p className="text-xs uppercase text-primary">{t.heritageNote}</p><h2 className="mt-5 max-w-xl text-4xl font-medium leading-tight sm:text-6xl">{t.heritageTitle}</h2><p className="mt-8 max-w-xl text-lg leading-8 text-muted-foreground">{t.heritageBody}</p></div></div>
     </section>
 
-    <section className="bg-foreground px-5 py-24 text-background sm:px-8 lg:px-12 lg:py-32">
-      <div className="mx-auto max-w-[1344px]"><Eyebrow light>{t.timelineLabel}</Eyebrow><h2 className="mt-6 max-w-5xl text-4xl font-medium leading-tight sm:text-6xl lg:text-7xl">{t.timelineTitle}</h2>
-        <div className="mt-16 border-t border-background/25">{t.timeline.map(([year, body], index) => <article key={year} className="grid gap-5 border-b border-background/20 py-8 sm:grid-cols-[11rem_1fr] sm:gap-10 lg:grid-cols-[16rem_1fr] lg:py-11"><p className="font-display text-4xl font-medium text-primary sm:text-5xl">{year}</p><div className="flex gap-5"><span className="mt-2 text-xs text-background/35">{String(index + 1).padStart(2, "0")}</span><p className="max-w-3xl text-lg leading-8 text-background/75">{body}</p></div></article>)}</div>
-      </div>
-    </section>
+    <TimelineSection t={t} />
 
     <section className="px-5 py-24 sm:px-8 lg:px-12 lg:py-32"><div className="mx-auto max-w-[1344px]"><Eyebrow>{t.processLabel}</Eyebrow><h2 className="mt-6 max-w-4xl text-4xl font-medium leading-tight sm:text-6xl lg:text-7xl">{t.processTitle}</h2><div className="mt-14 grid border-t border-border md:grid-cols-2 lg:grid-cols-4">{t.process.map(([title, body], index) => <article key={title} className="border-b border-border py-8 md:px-7 md:odd:border-r lg:border-r lg:last:border-r-0"><span className="text-xs text-primary">0{index + 1}</span><h3 className="mt-16 text-3xl font-medium">{title}</h3><p className="mt-5 leading-7 text-muted-foreground">{body}</p></article>)}</div></div></section>
 
@@ -58,4 +55,63 @@ function AboutPage() {
 
     <section className="px-5 py-24 text-center sm:px-8 lg:py-36"><p className="mx-auto max-w-4xl font-display text-5xl font-medium leading-tight sm:text-7xl">{t.closing}</p><p className="mx-auto mt-6 max-w-xl text-muted-foreground sm:text-lg">{t.closingBody}</p><Button asChild className="mt-9 h-13 rounded-none px-7"><Link to="/appointment">{text.nav.appointment}<ArrowRight /></Link></Button></section>
   </>;
+}
+
+type TimelineProps = {
+  t: {
+    timeline: readonly (readonly string[])[];
+    timelineTags: readonly string[];
+    timelineLabel: string;
+    timelineTitle: string;
+    heritageNote: string;
+  };
+};
+
+function TimelineSection({ t }: TimelineProps) {
+  const [active, setActive] = useState(0);
+  return (
+    <section className="bg-background px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div className="mx-auto max-w-[1344px]">
+        <div className="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-10">
+          <div>
+            <Eyebrow>{t.timelineLabel}</Eyebrow>
+            <h2 className="mt-6 max-w-4xl text-4xl font-medium leading-tight sm:text-6xl lg:text-7xl">{t.timelineTitle}</h2>
+          </div>
+          <p className="hidden pb-2 text-xs uppercase tracking-[0.25em] text-muted-foreground md:block">{t.heritageNote}</p>
+        </div>
+        <div className="mt-10 flex flex-col gap-2 lg:h-[560px] lg:flex-row">
+          {t.timeline.map(([year, body], index) => {
+            const isActive = index === active;
+            return (
+              <article
+                key={year}
+                onMouseEnter={() => setActive(index)}
+                style={{ flex: `${isActive ? 4.5 : 1} 1 0%` }}
+                className={`relative flex flex-col overflow-hidden border bg-card transition-all duration-500 ease-out lg:min-h-0 lg:min-w-[88px] lg:flex-row ${isActive ? "border-primary/30" : "border-border"}`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setActive(index)}
+                  onFocus={() => setActive(index)}
+                  aria-expanded={isActive}
+                  className="flex w-full cursor-pointer items-center justify-between gap-4 p-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring lg:h-full lg:w-auto lg:flex-none lg:flex-col lg:items-center lg:justify-start lg:gap-0 lg:p-6"
+                >
+                  <span className="font-display text-2xl font-semibold text-primary lg:[writing-mode:vertical-rl] lg:rotate-180 lg:text-3xl">{year}</span>
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground lg:mt-auto lg:[writing-mode:vertical-rl] lg:rotate-180">{t.timelineTags[index]}</span>
+                </button>
+                {isActive && (
+                  <div className="min-w-0 flex-1 animate-in fade-in px-5 pb-6 duration-500 sm:text-lg lg:px-10 lg:py-12 lg:pr-16">
+                    <div className="flex flex-col justify-center lg:h-full lg:max-w-md">
+                      <p className="leading-8 text-muted-foreground">{body}</p>
+                      <span aria-hidden="true" className="mt-8 hidden h-px w-12 bg-primary lg:block" />
+                    </div>
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
 }
