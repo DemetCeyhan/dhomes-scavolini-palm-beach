@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, HeartHandshake, Leaf, RefreshCw, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,11 +45,7 @@ function AboutPage() {
       <div className="flex flex-col justify-between px-5 py-16 sm:px-10 lg:px-16 lg:py-20"><Eyebrow>{t.heritageLabel}</Eyebrow><div className="mt-20"><p className="text-xs uppercase text-primary">{t.heritageNote}</p><h2 className="mt-5 max-w-xl text-4xl font-medium leading-tight sm:text-6xl">{t.heritageTitle}</h2><p className="mt-8 max-w-xl text-lg leading-8 text-muted-foreground">{t.heritageBody}</p></div></div>
     </section>
 
-    <section className="bg-foreground px-5 py-24 text-background sm:px-8 lg:px-12 lg:py-32">
-      <div className="mx-auto max-w-[1344px]"><Eyebrow light>{t.timelineLabel}</Eyebrow><h2 className="mt-6 max-w-5xl text-4xl font-medium leading-tight sm:text-6xl lg:text-7xl">{t.timelineTitle}</h2>
-        <div className="mt-16 border-t border-background/25">{t.timeline.map(([year, body], index) => <article key={year} className="grid gap-5 border-b border-background/20 py-8 sm:grid-cols-[11rem_1fr] sm:gap-10 lg:grid-cols-[16rem_1fr] lg:py-11"><p className="font-display text-4xl font-medium text-primary sm:text-5xl">{year}</p><div className="flex gap-5"><span className="mt-2 text-xs text-background/35">{String(index + 1).padStart(2, "0")}</span><p className="max-w-3xl text-lg leading-8 text-background/75">{body}</p></div></article>)}</div>
-      </div>
-    </section>
+    <TimelineSection t={t} />
 
     <section className="px-5 py-24 sm:px-8 lg:px-12 lg:py-32"><div className="mx-auto max-w-[1344px]"><Eyebrow>{t.processLabel}</Eyebrow><h2 className="mt-6 max-w-4xl text-4xl font-medium leading-tight sm:text-6xl lg:text-7xl">{t.processTitle}</h2><div className="mt-14 grid border-t border-border md:grid-cols-2 lg:grid-cols-4">{t.process.map(([title, body], index) => <article key={title} className="border-b border-border py-8 md:px-7 md:odd:border-r lg:border-r lg:last:border-r-0"><span className="text-xs text-primary">0{index + 1}</span><h3 className="mt-16 text-3xl font-medium">{title}</h3><p className="mt-5 leading-7 text-muted-foreground">{body}</p></article>)}</div></div></section>
 
