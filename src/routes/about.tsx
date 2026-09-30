@@ -60,7 +60,7 @@ function AboutPage() {
 type TimelineProps = {
   t: {
     timeline: readonly (readonly string[])[];
-    timelineTags: string[];
+    timelineTags: readonly string[];
     timelineLabel: string;
     timelineTitle: string;
     heritageNote: string;
