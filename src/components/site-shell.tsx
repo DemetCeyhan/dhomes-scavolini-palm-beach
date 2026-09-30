@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import logo from "@/assets/dhomes-logo-white.png";
+import logo from "@/assets/dhomes-logo-red.png";
 import { copy, languageNames, type Language } from "@/lib/site-copy";
 
 type SiteContextValue = { language: Language; setLanguage: (language: Language) => void };
@@ -39,31 +39,31 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <SiteContext.Provider value={{ language, setLanguage }}>
       <a href="#main-content" className="skip-link">Skip to content</a>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-background/20 bg-primary text-primary-foreground">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/80 text-foreground backdrop-blur-md">
         <div className="mx-auto grid h-16 max-w-[1440px] grid-cols-[minmax(0,1fr)_auto] items-center px-5 sm:h-20 sm:px-8 lg:grid-cols-[auto_1fr_auto] lg:px-12">
           <Link to="/" aria-label="D'HOMES home" className="min-w-0">
             <img src={logo} alt="D'HOMES — Kitchens, Interiors, Lifestyle" className="h-9 w-auto max-w-[200px] object-contain object-left sm:h-11 sm:max-w-[240px]" />
           </Link>
           <nav className="hidden justify-center gap-8 lg:flex" aria-label="Main navigation">
             {links.map(([to, label]) => (
-              <Link key={to} to={to} activeOptions={{ exact: to === "/" }} className="nav-link text-xs font-semibold uppercase text-primary-foreground/70 transition-colors hover:text-primary-foreground" activeProps={{ className: "text-primary-foreground" }}>{label}</Link>
+              <Link key={to} to={to} activeOptions={{ exact: to === "/" }} className="nav-link text-xs font-semibold uppercase text-foreground/65 transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>{label}</Link>
             ))}
           </nav>
           <div className="hidden items-center gap-5 lg:flex">
             <LanguagePicker language={language} setLanguage={setLanguage} />
-            <Button asChild className="h-11 rounded-none bg-background px-5 text-xs uppercase text-primary shadow-none hover:bg-background/90">
+            <Button asChild className="h-10 rounded-none bg-primary px-5 text-xs uppercase text-primary-foreground shadow-none hover:bg-primary/90">
               <Link to="/appointment">{text.nav.appointment}<ArrowUpRight /></Link>
             </Button>
           </div>
-          <Button variant="ghost" size="icon" className="justify-self-end text-primary-foreground hover:bg-background/15 hover:text-primary-foreground lg:hidden" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>
+          <Button variant="ghost" size="icon" className="justify-self-end text-foreground hover:bg-secondary hover:text-foreground lg:hidden" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>
             {menuOpen ? <X /> : <Menu />}
           </Button>
         </div>
         {menuOpen && (
-          <div className="border-t border-background/20 bg-primary px-5 pb-7 pt-5 text-primary-foreground lg:hidden">
+          <div className="border-t border-border bg-background px-5 pb-7 pt-5 text-foreground lg:hidden">
             <nav className="flex flex-col" aria-label="Mobile navigation">
-              {links.map(([to, label]) => <Link key={to} to={to} className="border-b border-background/20 py-4 text-2xl font-display">{label}</Link>)}
-              <Link to="/appointment" className="border-b border-background/20 py-4 text-2xl font-display">{text.nav.appointment}</Link>
+              {links.map(([to, label]) => <Link key={to} to={to} className="border-b border-border py-4 text-2xl font-display">{label}</Link>)}
+              <Link to="/appointment" className="border-b border-border py-4 text-2xl font-display">{text.nav.appointment}</Link>
             </nav>
             <div className="mt-6"><LanguagePicker language={language} setLanguage={setLanguage} /></div>
           </div>
@@ -100,7 +100,7 @@ function LanguagePicker({ language, setLanguage }: { language: Language; setLang
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="h-10 min-w-[86px] justify-between gap-2 rounded-none border border-background/35 px-3 text-xs text-primary-foreground hover:bg-background/15 hover:text-primary-foreground"
+          className="h-10 min-w-[86px] justify-between gap-2 rounded-none border border-border px-3 text-xs text-foreground hover:bg-secondary hover:text-foreground"
           aria-label={`Language: ${selected.label}`}
         >
           <span className="flex items-center gap-2"><SelectedFlag className="h-3.5 w-5" aria-hidden="true" />{languageNames[language]}</span>
