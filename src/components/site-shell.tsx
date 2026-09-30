@@ -51,7 +51,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </nav>
           <div className="hidden items-center gap-5 lg:flex">
             <LanguagePicker language={language} setLanguage={setLanguage} />
-            <Button asChild className="h-10 rounded-none bg-primary px-5 text-xs uppercase text-primary-foreground shadow-none hover:bg-primary/90">
+            <Button asChild className="h-10 rounded-lg bg-primary px-5 text-xs uppercase text-primary-foreground shadow-none hover:bg-primary/90">
               <Link to="/appointment">{text.nav.appointment}<ArrowUpRight /></Link>
             </Button>
           </div>
@@ -62,8 +62,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
         {menuOpen && (
           <div className="border-t border-border bg-background px-5 pb-7 pt-5 text-foreground lg:hidden">
             <nav className="flex flex-col" aria-label="Mobile navigation">
-              {links.map(([to, label]) => <Link key={to} to={to} className="border-b border-border py-4 text-2xl font-display">{label}</Link>)}
-              <Link to="/appointment" className="border-b border-border py-4 text-2xl font-display">{text.nav.appointment}</Link>
+              {links.map(([to, label]) => <Link key={to} to={to} className="border-b border-border py-4 text-xl font-display">{label}</Link>)}
+              <Link to="/appointment" className="border-b border-border py-4 text-xl font-display">{text.nav.appointment}</Link>
             </nav>
             <div className="mt-6"><LanguagePicker language={language} setLanguage={setLanguage} /></div>
           </div>
@@ -100,14 +100,14 @@ function LanguagePicker({ language, setLanguage }: { language: Language; setLang
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="h-10 min-w-[86px] justify-between gap-2 rounded-none border border-border px-3 text-xs text-foreground hover:bg-secondary hover:text-foreground"
+          className="h-10 min-w-[86px] justify-between gap-2 rounded-lg border border-border px-3 text-xs text-foreground hover:bg-secondary hover:text-foreground"
           aria-label={`Language: ${selected.label}`}
         >
           <span className="flex items-center gap-2"><SelectedFlag className="h-3.5 w-5" aria-hidden="true" />{languageNames[language]}</span>
           <ChevronDown className="size-3.5 opacity-70" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" sideOffset={8} className="min-w-44 rounded-none border-border bg-background p-1.5 shadow-lg">
+      <DropdownMenuContent align="end" sideOffset={8} className="min-w-44 rounded-lg border-border bg-background p-1.5 shadow-lg">
         {(Object.keys(languages) as Language[]).map((item) => (
           <DropdownMenuItem
             key={item}
