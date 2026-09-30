@@ -56,3 +56,62 @@ function AboutPage() {
     <section className="px-5 py-24 text-center sm:px-8 lg:py-36"><p className="mx-auto max-w-4xl font-display text-5xl font-medium leading-tight sm:text-7xl">{t.closing}</p><p className="mx-auto mt-6 max-w-xl text-muted-foreground sm:text-lg">{t.closingBody}</p><Button asChild className="mt-9 h-13 rounded-none px-7"><Link to="/appointment">{text.nav.appointment}<ArrowRight /></Link></Button></section>
   </>;
 }
+
+type TimelineProps = {
+  t: {
+    timeline: string[][];
+    timelineTags: string[];
+    timelineLabel: string;
+    timelineTitle: string;
+    heritageNote: string;
+  };
+};
+
+function TimelineSection({ t }: TimelineProps) {
+  const [active, setActive] = useState(0);
+  return (
+    <section className="bg-background px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div className="mx-auto max-w-[1344px]">
+        <div className="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-10">
+          <div>
+            <Eyebrow>{t.timelineLabel}</Eyebrow>
+            <h2 className="mt-6 max-w-4xl text-4xl font-medium leading-tight sm:text-6xl lg:text-7xl">{t.timelineTitle}</h2>
+          </div>
+          <p className="hidden pb-2 text-xs uppercase tracking-[0.25em] text-muted-foreground md:block">{t.heritageNote}</p>
+        </div>
+        <div className="mt-10 flex flex-col gap-2 lg:h-[560px] lg:flex-row">
+          {t.timeline.map(([year, body], index) => {
+            const isActive = index === active;
+            return (
+              <article
+                key={year}
+                onMouseEnter={() => setActive(index)}
+                style={{ flex: `${isActive ? 4.5 : 1} 1 0%` }}
+                className={`relative overflow-hidden border bg-card transition-all duration-500 ease-out lg:min-w-[88px] ${isActive ? "border-primary/30" : "border-border"}`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setActive(index)}
+                  onFocus={() => setActive(index)}
+                  aria-expanded={isActive}
+                  className="flex w-full cursor-pointer items-center justify-between gap-4 p-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring lg:h-full lg:w-auto lg:flex-none lg:flex-col lg:items-center lg:justify-start lg:gap-0 lg:p-6"
+                >
+                  <span className="font-display text-2xl font-semibold text-primary lg:[writing-mode:vertical-rl] lg:rotate-180 lg:text-3xl">{year}</span>
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground lg:mt-auto lg:[writing-mode:vertical-rl] lg:rotate-180">{t.timelineTags[index]}</span>
+                </button>
+                {isActive && (
+                  <div className="min-w-0 flex-1 animate-in fade-in px-5 pb-6 duration-500 sm:text-lg lg:px-10 lg:py-12 lg:pr-16">
+                    <div className="flex flex-col justify-center lg:h-full lg:max-w-md">
+                      <p className="leading-8 text-muted-foreground">{body}</p>
+                      <span aria-hidden="true" className="mt-8 hidden h-px w-12 bg-primary lg:block" />
+                    </div>
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
